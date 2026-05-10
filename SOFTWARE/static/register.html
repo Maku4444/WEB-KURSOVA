@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Реєстрація | Cloud Calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+    <div class="login-card">
+        <h1>Створити акаунт</h1>
+        <p>Приєднуйтесь до Cloud Calendar сьогодні</p>
+        
+        <form id="registerForm">
+            <div class="input-group">
+                <label class="input-label">Повне ім'я</label>
+                <input type="text" name="full_name" class="login-input" placeholder="Олександр Іванов" required>
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label">Електронна пошта</label>
+                <input type="email" name="email" class="login-input" placeholder="example@mail.com" required>
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label">Пароль</label>
+                <input type="password" name="password" class="login-input" placeholder="••••••••" required>
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label">Підтвердіть пароль</label>
+                <input type="password" name="confirm-password" class="login-input" placeholder="••••••••" required>
+            </div>
+            
+            <button type="submit" class="register-btn">Зареєструватися</button>
+        </form>
+
+        <div style="margin-top: 20px; font-size: 13px;">
+            Вже маєте акаунт? <a href="login.html" style="color: #4a86ff; text-decoration: none;">Увійти</a>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизація | Cloud Calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+    <div class="login-card">
+        <h1>Вітаємо у Cloud Calendar</h1>
+        <p>Увійдіть, щоб переглянути свій розклад та аналітику</p>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label class="input-label">Електронна пошта</label>
+                <input type="email" name="email" class="login-input" placeholder="example@mail.com" required>
+            </div>
+            <div class="input-group">
+                <label class="input-label">Пароль</label>
+                <input type="password" name="password" class="login-input" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="login-btn">Увійти в календар</button>
+        </form>
+
+        <div style="margin-top:20px; font-size:13px;">
+            <a href="register.html" style="color:#4a86ff; text-decoration:none;">Створити новий акаунт</a>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

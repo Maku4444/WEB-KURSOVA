@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Календар | Cloud Calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Меню">☰</button>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+        <a href="calendar.html" class="logo">
+            <img src="/img/img1.png" alt="Cloud Calendar" class="logo-img-sidebar">
+        </a>
+        <div class="section-title">Робоча зона</div>
+        <a href="calendar.html"       class="nav-item active">Календар (Д/Т/М)</a>
+        <a href="events.html"         class="nav-item">Мої події (Список)</a>
+        <a href="analytics.html"      class="nav-item">Аналітика часу</a>
+        <a href="profile.html"        class="nav-item">Профіль (Налаштування)</a>
+        <a href="categories-admin.html" class="nav-item">Редактор категорій</a>
+        <div class="section-title admin-only">Зона керування</div>
+        <a href="users-admin.html" class="nav-item admin-only">Керування користувачами</a>
+        <a href="login.html" class="nav-exit">Вийти</a>
+    </aside>
+
+    <main class="main-content">
+        <header class="header">
+            <div style="display:flex; align-items:center; gap:15px;">
+                <button onclick="changeMonth(-1)" class="btn-nav">‹</button>
+                <h1 id="month-title">Травень 2026</h1>
+                <button onclick="changeMonth(1)"  class="btn-nav">›</button>
+            </div>
+            <div style="display:flex; gap:20px; align-items:center;">
+                <a href="profile.html" id="user-display-name" style="font-weight:600; text-decoration:none; color:inherit;">Завантаження...</a>
+                <a href="profile.html"><img src="/img/img2.png" alt="Profile" class="user-avatar"></a>
+            </div>
+        </header>
+
+        <div class="card">
+            <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script src="js/calendar.js"></script>
+</body>
+</html>

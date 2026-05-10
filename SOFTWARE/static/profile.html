@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профіль | Cloud Calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Меню">☰</button>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+        <a href="calendar.html" class="logo">
+            <img src="/img/img1.png" alt="Cloud Calendar" class="logo-img-sidebar">
+        </a>
+        <div class="section-title">Робоча зона</div>
+        <a href="calendar.html"         class="nav-item">Календар (Д/Т/М)</a>
+        <a href="events.html"           class="nav-item">Мої події (Список)</a>
+        <a href="analytics.html"        class="nav-item">Аналітика часу</a>
+        <a href="profile.html"          class="nav-item active">Профіль (Налаштування)</a>
+        <a href="categories-admin.html" class="nav-item">Редактор категорій</a>
+        <div class="section-title admin-only">Зона керування</div>
+        <a href="users-admin.html" class="nav-item admin-only">Керування користувачами</a>
+        <a href="login.html" class="nav-exit">Вийти</a>
+    </aside>
+
+    <main class="main-content">
+        <header class="header">
+            <h1>Налаштування профілю</h1>
+            <a href="profile.html" class="user-profile-link">
+                <span id="user-display-name" style="font-weight:600;">Завантаження...</span>
+                <img src="/img/img2.png" alt="Profile" class="user-avatar" id="header-avatar">
+            </a>
+        </header>
+
+        <div class="avatar-section">
+            <div class="avatar-wrapper" onclick="triggerAvatarUpload()" style="cursor:pointer;" title="Натисніть щоб змінити фото">
+                <img src="/img/img2.png" alt="Аватарка" class="avatar-large user-avatar" id="avatar-preview">
+                <div class="avatar-edit-hint">✎</div>
+            </div>
+
+            <div class="avatar-info">
+                <h3>Фото профілю</h3>
+                <p>PNG, JPG, GIF або WEBP · максимум 5 МБ.<br>Фото буде відображатись у шапці всіх сторінок.</p>
+                <div class="avatar-btns">
+                    <button id="avatar-upload-btn" class="btn-avatar-upload" onclick="triggerAvatarUpload()">
+                        Змінити фото
+                    </button>
+                    <button id="avatar-delete-btn" class="btn-avatar-delete" onclick="deleteAvatar()">
+                        Видалити
+                    </button>
+                </div>
+                <div id="avatar-message"></div>
+            </div>
+
+            <input type="file" id="avatar-file-input" accept="image/png,image/jpeg,image/gif,image/webp"
+                   onchange="onAvatarFileSelected(event)">
+        </div>
+
+        <div class="card" style="max-width:600px;">
+            <form id="profileForm">
+                <div class="input-group">
+                    <label class="input-label">Повне ім'я</label>
+                    <input type="text" class="login-input" id="profile-name" required>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Електронна пошта</label>
+                    <input type="email" class="login-input" id="profile-email" required>
+                </div>
+
+                <div style="margin:30px 0 20px; border-top:1px solid #e2e8f0; padding-top:20px;">
+                    <h3 style="margin:0 0 15px; font-size:16px;">Зміна пароля <span style="font-weight:400; color:var(--text-muted);">(залиште порожнім, якщо не змінюєте)</span></h3>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Новий пароль</label>
+                    <input type="password" id="new-password" class="login-input" placeholder="••••••••">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Підтвердження пароля</label>
+                    <input type="password" id="confirm-password" class="login-input" placeholder="••••••••">
+                </div>
+
+                <button type="button" onclick="updateProfile()" class="btn-primary" style="width:100%; margin-top:10px;">
+                    Зберегти зміни
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

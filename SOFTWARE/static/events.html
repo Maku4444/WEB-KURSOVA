@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мої події | Cloud Calendar</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-light">
+
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Меню">☰</button>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+        <a href="calendar.html" class="logo">
+            <img src="/img/img1.png" alt="Cloud Calendar" class="logo-img-sidebar">
+        </a>
+        <div class="section-title">Робоча зона</div>
+        <a href="calendar.html"        class="nav-item">Календар (Д/Т/М)</a>
+        <a href="events.html"          class="nav-item active">Мої події (Список)</a>
+        <a href="analytics.html"       class="nav-item">Аналітика часу</a>
+        <a href="profile.html"         class="nav-item">Профіль (Налаштування)</a>
+        <a href="categories-admin.html" class="nav-item">Редактор категорій</a>
+        <div class="section-title admin-only">Зона керування</div>
+        <a href="users-admin.html" class="nav-item admin-only">Керування користувачами</a>
+        <a href="login.html" class="nav-exit">Вийти</a>
+    </aside>
+
+    <main class="main-content">
+        <div class="events-header">
+            <h1 class="page-title">Мої події</h1>
+            <div style="display:flex; gap:20px; align-items:center;">
+                <button class="btn-add-event" onclick="openAddModal()">
+                    <i class="fas fa-plus"></i> Додати подію
+                </button>
+                <a href="profile.html" id="user-display-name" style="font-weight:600; text-decoration:none; color:inherit;">Завантаження...</a>
+                <a href="profile.html"><img src="/img/img2.png" alt="Profile" class="user-avatar"></a>
+            </div>
+        </div>
+
+        <div class="events-card">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th><i class="far fa-bookmark"></i> Назва</th>
+                        <th><i class="fas fa-tags"></i> Категорія</th>
+                        <th><i class="far fa-calendar-alt"></i> Початок</th>
+                        <th><i class="far fa-calendar-check"></i> Кінець</th>
+                        <th class="text-center">Дії</th>
+                    </tr>
+                </thead>
+                <tbody id="eventsList"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="eventModal" class="modal-overlay" style="display:none;">
+        <div class="modal-content card">
+            <h3 id="modalTitle">Деталі події</h3>
+            <form id="eventForm">
+                <input type="hidden" id="eventId">
+
+                <div class="input-group">
+                    <label>Назва події</label>
+                    <input type="text" id="eventTitle" class="login-input" placeholder="Введіть назву..." required>
+                </div>
+                <div class="input-group">
+                    <label>Категорія</label>
+                    <select id="eventCategory" class="login-input">
+                        <option value="">Без категорії</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Час початку</label>
+                    <input type="datetime-local" id="eventStart" class="login-input" required>
+                </div>
+                <div class="input-group">
+                    <label>Час завершення</label>
+                    <input type="datetime-local" id="eventEnd" class="login-input" required>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit"                    class="btn-save">Зберегти</button>
+                    <button type="button" onclick="closeModal()" class="btn-cancel">Скасувати</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/events.js"></script>
+</body>
+</html>

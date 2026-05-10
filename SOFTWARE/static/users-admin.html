@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Керування користувачами | Cloud Calendar</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Меню">☰</button>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+        <a href="calendar.html" class="logo">
+            <img src="/img/img1.png" alt="Cloud Calendar" class="logo-img-sidebar">
+        </a>
+        <div class="section-title">Робоча зона</div>
+        <a href="calendar.html"         class="nav-item">Календар (Д/Т/М)</a>
+        <a href="events.html"           class="nav-item">Мої події (Список)</a>
+        <a href="analytics.html"        class="nav-item">Аналітика часу</a>
+        <a href="profile.html"          class="nav-item">Профіль (Налаштування)</a>
+        <a href="categories-admin.html" class="nav-item">Редактор категорій</a>
+        <div class="section-title">Зона керування</div>
+        <a href="users-admin.html" class="nav-item active">Керування користувачами</a>
+        <a href="login.html" class="nav-exit">Вийти</a>
+    </aside>
+
+    <main class="main-content">
+        <header class="header">
+            <h1>Список користувачів</h1>
+            <div style="display:flex; gap:20px; align-items:center;">
+                <a href="profile.html" id="user-display-name" style="font-weight:600; text-decoration:none; color:inherit;">Завантаження...</a>
+                <a href="profile.html"><img src="/img/img2.png" alt="Profile" class="user-avatar"></a>
+            </div>
+        </header>
+
+        <div class="card admin-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Роль</th>
+                        <th class="text-center">Дії</th>
+                    </tr>
+                </thead>
+                <tbody id="adminUsersList"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
