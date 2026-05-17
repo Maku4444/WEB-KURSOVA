@@ -44,7 +44,7 @@ async function handleLogin(event) {
     if (response.ok) {
         localStorage.setItem('token', result.token);
         localStorage.setItem('user',  JSON.stringify(result.user));
-        window.location.href = 'calendar.html';
+        window.location.replace('calendar.html');
     } else {
         alert(result.error || 'Помилка входу');
     }
@@ -56,4 +56,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const logForm = document.getElementById('loginForm');
     if (logForm) logForm.onsubmit = handleLogin;
+
+    const forgotForm = document.getElementById('forgotForm');
+    if (forgotForm) forgotForm.onsubmit = handleForgotPassword;
+
+    
+    const modal = document.getElementById('forgotModal');
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeForgotModal();
+        });
+    }
 });
+
+function openForgotModal() {
+    document.getElementById('forgotModal').style.display = 'flex';
+    document.getElementById('forgotEmail').value = '';
+    document.getElementById('forgotError').textContent = '';
+    document.getElementById('forgotEmail').focus();
+}
+
+function closeForgotModal() {
+    document.getElementById('forgotModal').style.display = 'none';
+}
+
+
+async function handleForgotPassword(event) {
+    event.preventDefault();
+
+    const email   = document.getElementById('forgotEmail').value.trim();
+    const errorEl = document.getElementById('forgotError');
+    const btn     = document.getElementById('forgotSubmitBtn');
+
+    errorEl.textContent = '';
+    btn.disabled        = true;
+    btn.textContent     = 'Надсилаємо...';
+
+    try {
+        const response = await fetch('/api/auth/forgot-password', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ email }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            closeForgotModal();
+            alert('✅ Тимчасовий пароль надіслано на вашу пошту. Перевірте поштову скриньку.');
+        } else if (response.status === 404) {
+            errorEl.textContent = 'Користувача з такою поштою не знайдено.';
+        } else {
+            errorEl.textContent = result.error || 'Щось пішло не так. Спробуйте пізніше.';
+        }
+    } catch {
+        errorEl.textContent = 'Помилка мережі. Перевірте з\'єднання.';
+    } finally {
+        btn.disabled    = false;
+        btn.textContent = 'Надіслати';
+    }
+}
+

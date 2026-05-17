@@ -34,3 +34,4 @@ class Event(db.Model):
     user_id         = db.Column(db.Integer, db.ForeignKey('users.user_id'),           nullable=False)
     category_id     = db.Column(db.Integer, db.ForeignKey('categories.categorie_id'), nullable=True)
     reminder_sent = db.Column(db.Boolean, default=False)
+    is_completed = db.Column(db.Boolean, default=False)

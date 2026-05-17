@@ -63,13 +63,19 @@ async function renderCalendar() {
         dayEvents.forEach(e => {
             const ev       = document.createElement('div');
             ev.className   = 'event-item';
-            ev.innerText   = e.title;
             ev.style.cursor = 'pointer';
             ev.title        = e.title;
 
-            if (e.category_color) {
-                ev.style.backgroundColor = e.category_color;
-                ev.style.borderLeft      = '4px solid rgba(0,0,0,0.2)';
+            if (e.is_completed) {
+                ev.style.backgroundColor = '#94a3b8';
+                ev.style.opacity         = '0.75';
+                ev.innerHTML = `<span style="margin-right:4px; color:#4ade80; font-weight:700;">✓</span>${e.title}`;
+            } else {
+                ev.innerText = e.title;
+                if (e.category_color) {
+                    ev.style.backgroundColor = e.category_color;
+                    ev.style.borderLeft      = '4px solid rgba(0,0,0,0.2)';
+                }
             }
 
             ev.onclick = () => {

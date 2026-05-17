@@ -9,6 +9,10 @@
 <body class="auth-body">
 
     <div class="login-card">
+        <div class="auth-logo-container">
+            <img src="/img/img1.png" alt="Cloud Calendar Logo" class="auth-logo-img">
+        </div>
+
         <h1>Вітаємо у Cloud Calendar</h1>
         <p>Увійдіть, щоб переглянути свій розклад та аналітику</p>
 
@@ -20,12 +24,50 @@
             <div class="input-group">
                 <label class="input-label">Пароль</label>
                 <input type="password" name="password" class="login-input" placeholder="••••••••" required>
+                <div style="margin-top:8px; font-size:13px; color:#64748b;">
+                    Забули пароль? <a href="#" onclick="openForgotModal(); return false;" style="color:#4a86ff; text-decoration:none; font-weight:600;">Відновити</a>
+                </div>
             </div>
             <button type="submit" class="login-btn">Увійти в календар</button>
         </form>
 
         <div style="margin-top:20px; font-size:13px;">
             <a href="register.html" style="color:#4a86ff; text-decoration:none;">Створити новий акаунт</a>
+        </div>
+    </div>
+
+
+    <div id="forgotModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:1000; align-items:center; justify-content:center; padding:16px;">
+        <div style="background:white; border-radius:20px; padding:36px 32px; width:min(420px,100%); box-shadow:0 25px 50px rgba(0,0,0,.18); position:relative;">
+
+            <button onclick="closeForgotModal()" style="position:absolute; top:16px; right:18px; background:none; border:none; font-size:22px; cursor:pointer; color:#94a3b8; line-height:1;">×</button>
+
+            <div style="text-align:center; margin-bottom:24px;">
+                <div style="width:56px; height:56px; background:#eff6ff; border-radius:16px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:14px;">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
+                <h2 style="font-size:20px; font-weight:700; margin:0 0 8px; color:#1e293b;">Відновлення пароля</h2>
+                <p style="font-size:14px; color:#64748b; margin:0; line-height:1.6;">
+                    Введіть вашу електронну пошту — ми надішлемо тимчасовий пароль для входу. Після входу обов'язково змініть пароль у профілі.
+                </p>
+            </div>
+
+            <form id="forgotForm">
+                <div style="margin-bottom:6px;">
+                    <label style="display:block; font-size:14px; font-weight:600; margin-bottom:8px; color:#1e293b;">Електронна пошта</label>
+                    <input type="email" id="forgotEmail" class="login-input" placeholder="example@mail.com" required
+                           style="width:100%; padding:12px 16px; border:1px solid #e2e8f0; border-radius:10px; font-size:15px; font-family:inherit; outline:none; transition:border-color .2s, box-shadow .2s;"
+                           onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59,130,246,.1)'"
+                           onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
+                    <p id="forgotError" style="margin:8px 0 0; font-size:13px; color:#ef4444; min-height:18px;"></p>
+                </div>
+
+                <button id="forgotSubmitBtn" type="submit"
+                        style="width:100%; margin-top:16px; padding:13px; background:#3b82f6; color:white; border:none; border-radius:10px; font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; transition:background .2s;"
+                        onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+                    Надіслати
+                </button>
+            </form>
         </div>
     </div>
 

@@ -17,4 +17,4 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.getenv('MAIL_USERNAME')
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
-    MAIL_DEFAULT_SENDER = os.environ.get('MAIL_USERNAME', 'dzulaymakar@gmail.com')
+    MAIL_DEFAULT_SENDER = os.environ.get('MAIL_USERNAME', 'cioudcaiendarapp@gmail.com')

@@ -2,6 +2,9 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мої події | Cloud Calendar</title>
     <link rel="stylesheet" href="style.css">
@@ -17,14 +20,14 @@
             <img src="/img/img1.png" alt="Cloud Calendar" class="logo-img-sidebar">
         </a>
         <div class="section-title">Робоча зона</div>
-        <a href="calendar.html"        class="nav-item">Календар (Д/Т/М)</a>
-        <a href="events.html"          class="nav-item active">Мої події (Список)</a>
-        <a href="analytics.html"       class="nav-item">Аналітика часу</a>
-        <a href="profile.html"         class="nav-item">Профіль (Налаштування)</a>
-        <a href="categories-admin.html" class="nav-item">Редактор категорій</a>
+        <a href="calendar.html"  class="nav-item"><i class="fa-regular fa-calendar"></i>Календар (Д/Т/М)</a>
+        <a href="events.html"    class="nav-item active"><i class="fa-solid fa-list-check"></i>Мої події (Список)</a>
+        <a href="analytics.html" class="nav-item"><i class="fa-solid fa-chart-column"></i> Аналітика часу</a>
+        <a href="profile.html"   class="nav-item"><i class="fa-solid fa-user-pen"></i>Профіль (Налаштування)</a>
+        <a href="categories-admin.html" class="nav-item"><i class="fa-solid fa-tag"></i>Редактор категорій</a>
         <div class="section-title admin-only">Зона керування</div>
-        <a href="users-admin.html" class="nav-item admin-only">Керування користувачами</a>
-        <a href="login.html" class="nav-exit">Вийти</a>
+        <a href="users-admin.html" class="nav-item admin-only"><i class="fa-solid fa-users"></i>Керування користувачами</a>
+        <a href="#" onclick="logout(); return false;" class="nav-exit"><i class="fa-solid fa-arrow-right-from-bracket"></i>Вийти</a>
     </aside>
 
     <main class="main-content">
@@ -47,6 +50,7 @@
                         <th><i class="fas fa-tags"></i> Категорія</th>
                         <th><i class="far fa-calendar-alt"></i> Початок</th>
                         <th><i class="far fa-calendar-check"></i> Кінець</th>
+                        <th><i class="fa-regular fa-circle-check"></i> Статус</th>
                         <th class="text-center">Дії</th>
                     </tr>
                 </thead>
@@ -78,6 +82,11 @@
                 <div class="input-group">
                     <label>Час завершення</label>
                     <input type="datetime-local" id="eventEnd" class="login-input" required>
+                </div>
+
+                <div class="input-group" style="display:flex; align-items:center; gap:12px; margin-bottom:0;">
+                    <input type="checkbox" id="eventCompleted" style="width:18px; height:18px; accent-color:#10b981; cursor:pointer; flex-shrink:0;">
+                    <label for="eventCompleted" style="cursor:pointer; font-size:14px; font-weight:500; margin:0;">Подія виконана</label>
                 </div>
 
                 <div class="modal-actions">

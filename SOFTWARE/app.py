@@ -215,6 +215,48 @@ def update_profile(current_user):
 # Авторизація
 # ---------------------------------------------------------------------------
 
+@app.route('/api/auth/forgot-password', methods=['POST'])
+def forgot_password():
+    """Генерує тимчасовий пароль та надсилає його на пошту користувача."""
+    import random
+    import string
+
+    data  = request.json or {}
+    email = data.get('email', '').strip()
+
+    if not email:
+        return jsonify({'error': 'Email є обов\'язковим'}), 400
+
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'error': 'Користувача з такою поштою не знайдено'}), 404
+
+    alphabet = string.ascii_letters + string.digits
+    temp_password = ''.join(random.choices(alphabet, k=10))
+
+    user.password_hash = generate_password_hash(temp_password)
+    try:
+        db.session.commit()
+    except Exception as exc:
+        db.session.rollback()
+        print(f"[DB] forgot_password: {exc}")
+        return jsonify({'error': 'Помилка бази даних'}), 500
+
+    sent = send_notification_email(
+        email,
+        'Відновлення пароля — Cloud Calendar',
+        f'Привіт, {user.username}!\n\n'
+        f'Ваш тимчасовий пароль: {temp_password}\n\n'
+        f'Будь ласка, увійдіть і одразу змініть пароль у налаштуваннях профілю.\n\n'
+        f'З повагою,\nКоманда Cloud Calendar'
+    )
+
+    if not sent:
+        return jsonify({'error': 'Не вдалося надіслати листа. Спробуйте пізніше.'}), 500
+
+    return jsonify({'message': 'Тимчасовий пароль надіслано на вашу пошту'}), 200
+
+
 @app.route('/api/auth/register', methods=['POST'])
 def register():
     data = request.json or {}
@@ -223,6 +265,9 @@ def register():
 
     if User.query.filter_by(email=data['email']).first():
         return jsonify({'error': 'Ця пошта вже зайнята'}), 400
+    
+    if User.query.filter_by(username=data['full_name']).first():
+        return jsonify({'error': 'Користувач з таким ім\'ям вже існує'}), 400
 
     new_user = User(
         username=data['full_name'],
@@ -416,6 +461,7 @@ def get_events(current_user):
             'category_id':    e.category_id,
             'category_name':  c.name      if c else 'Без категорії',
             'category_color': c.color_hex if c else '#cbd5e1',
+            'is_completed':   bool(e.is_completed),
         }
         for e, c in results
     ])
@@ -446,7 +492,8 @@ def create_event(current_user):
             end_time=end,
             actual_duration=duration_sec,
             user_id=current_user.user_id,
-            category_id=data.get('category_id') or None
+            category_id=data.get('category_id') or None,
+            is_completed=bool(data.get('is_completed', False))
         )
         db.session.add(event)
         db.session.commit()
@@ -484,6 +531,7 @@ def manage_event(current_user, event_id):
     event.end_time        = end
     event.actual_duration = int((end - start).total_seconds())
     event.category_id     = data.get('category_id') or None
+    event.is_completed    = bool(data.get('is_completed', False))
     db.session.commit()
     return jsonify({'message': 'Подію оновлено'})
 
@@ -550,7 +598,7 @@ def send_event_reminders():
     """Фонова задача: перевірка подій та відправка листів"""
     with app.app_context():
         now = datetime.datetime.now()
-        lower_bound = now + datetime.timedelta(minutes=15)
+        lower_bound = now + datetime.timedelta(minutes=1)
         upper_bound = now + datetime.timedelta(minutes=30)
 
         upcoming_events = Event.query.filter(
@@ -577,7 +625,7 @@ def send_event_reminders():
                     print(f"Error sending email: {e}")
 
 if __name__ == '__main__':
-    scheduler.add_job(id='reminder_job', func=send_event_reminders, trigger='interval', seconds=60)
+    scheduler.add_job(id='reminder_job', func=send_event_reminders, trigger='interval', seconds=5)
     scheduler.init_app(app)
     scheduler.start()
     app.run(debug=True, use_reloader=False)

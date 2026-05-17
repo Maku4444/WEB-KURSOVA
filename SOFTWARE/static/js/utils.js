@@ -1,8 +1,35 @@
+const PROTECTED_PAGES = [
+    'calendar.html', 'events.html', 'analytics.html',
+    'profile.html', 'categories-admin.html', 'users-admin.html'
+];
+
+function isProtectedPage() {
+    const page = window.location.pathname.split('/').pop() || 'index.html';
+    return PROTECTED_PAGES.includes(page);
+}
+
+(function guardPage() {
+    if (isProtectedPage() && !localStorage.getItem('token')) {
+        window.location.replace('login.html');
+    }
+})();
+
+window.addEventListener('pageshow', (e) => {
+    if (e.persisted && isProtectedPage() && !localStorage.getItem('token')) {
+        window.location.replace('login.html');
+    }
+});
 
 function getToken() {
     const token = localStorage.getItem('token');
-    if (!token) window.location.href = 'login.html';
+    if (!token) window.location.replace('login.html');
     return token;
+}
+
+function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.replace('login.html');
 }
 
 function getCurrentUser() {

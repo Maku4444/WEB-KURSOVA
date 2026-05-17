@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Профіль | Cloud Calendar</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
@@ -16,14 +20,14 @@
             <img src="/img/img1.png" alt="Cloud Calendar" class="logo-img-sidebar">
         </a>
         <div class="section-title">Робоча зона</div>
-        <a href="calendar.html"         class="nav-item">Календар (Д/Т/М)</a>
-        <a href="events.html"           class="nav-item">Мої події (Список)</a>
-        <a href="analytics.html"        class="nav-item">Аналітика часу</a>
-        <a href="profile.html"          class="nav-item active">Профіль (Налаштування)</a>
-        <a href="categories-admin.html" class="nav-item">Редактор категорій</a>
+        <a href="calendar.html"  class="nav-item"><i class="fa-regular fa-calendar"></i>Календар (Д/Т/М)</a>
+        <a href="events.html"    class="nav-item"><i class="fa-solid fa-list-check"></i>Мої події (Список)</a>
+        <a href="analytics.html" class="nav-item"><i class="fa-solid fa-chart-column"></i> Аналітика часу</a>
+        <a href="profile.html"   class="nav-item active"><i class="fa-solid fa-user-pen"></i>Профіль (Налаштування)</a>
+        <a href="categories-admin.html" class="nav-item"><i class="fa-solid fa-tag"></i>Редактор категорій</a>
         <div class="section-title admin-only">Зона керування</div>
-        <a href="users-admin.html" class="nav-item admin-only">Керування користувачами</a>
-        <a href="login.html" class="nav-exit">Вийти</a>
+        <a href="users-admin.html" class="nav-item admin-only"><i class="fa-solid fa-users"></i>Керування користувачами</a>
+        <a href="#" onclick="logout(); return false;" class="nav-exit"><i class="fa-solid fa-arrow-right-from-bracket"></i>Вийти</a>
     </aside>
 
     <main class="main-content">

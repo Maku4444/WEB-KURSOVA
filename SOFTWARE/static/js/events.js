@@ -26,8 +26,15 @@ async function loadEvents() {
                 hour: '2-digit', minute: '2-digit',
             });
 
+            const done = e.is_completed;
+            const statusBadge = done
+                ? `<span class="status-badge status-done">✓ Виконано</span>`
+                : `<span class="status-badge status-pending">Невиконано</span>`;
+
+            const rowStyle = done ? 'opacity:.55; text-decoration:line-through;' : '';
+
             return `
-            <tr>
+            <tr style="${rowStyle}">
                 <td style="font-weight:600;">${e.title}</td>
                 <td>
                     <span class="badge" style="background:${e.category_color || '#cbd5e1'}; color:white; padding:4px 8px; border-radius:6px; font-size:12px;">
@@ -36,6 +43,7 @@ async function loadEvents() {
                 </td>
                 <td style="color:#636e72;">${start}</td>
                 <td style="color:#636e72;">${end}</td>
+                <td>${statusBadge}</td>
                 <td class="text-center">
                     <button class="action-btn edit-btn"   onclick='openEditModal(${JSON.stringify(e)})' title="Редагувати"><i class="fas fa-edit"></i></button>
                     <button class="action-btn delete-btn" onclick="deleteEvent(${e.id_events})"          title="Видалити"><i class="fas fa-trash"></i></button>
@@ -68,7 +76,8 @@ async function loadCategoriesForSelect() {
 
 function openAddModal() {
     document.getElementById('eventForm').reset();
-    document.getElementById('eventId').value       = '';
+    document.getElementById('eventId').value        = '';
+    document.getElementById('eventCompleted').checked = false;
     document.getElementById('modalTitle').innerText = 'Нова подія';
     loadCategoriesForSelect();
     document.getElementById('eventModal').style.display = 'flex';
@@ -79,6 +88,7 @@ function openEditModal(e) {
     document.getElementById('eventTitle').value = e.title;
     document.getElementById('eventStart').value = e.start_time.replace(' ', 'T').slice(0, 16);
     document.getElementById('eventEnd').value   = e.end_time.replace(' ', 'T').slice(0, 16);
+    document.getElementById('eventCompleted').checked = !!e.is_completed;
     document.getElementById('modalTitle').innerText = 'Редагувати подію';
 
     loadCategoriesForSelect().then(() => {
@@ -102,10 +112,11 @@ document.getElementById('eventForm').onsubmit = async (event) => {
     const id    = document.getElementById('eventId').value;
 
     const payload = {
-        title:       document.getElementById('eventTitle').value.trim(),
-        start_time:  document.getElementById('eventStart').value,
-        end_time:    document.getElementById('eventEnd').value,
-        category_id: document.getElementById('eventCategory').value || null,
+        title:        document.getElementById('eventTitle').value.trim(),
+        start_time:   document.getElementById('eventStart').value,
+        end_time:     document.getElementById('eventEnd').value,
+        category_id:  document.getElementById('eventCategory').value || null,
+        is_completed: document.getElementById('eventCompleted').checked,
     };
 
     try {
